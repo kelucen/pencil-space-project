@@ -1,0 +1,50 @@
+/* Overall container for the app */
+.main-container {
+  display: flex;
+  justify-content: space-around; /* Space out the iframes */
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+iframe {
+  border: 2px solid red; /* Just to visualize the iframe boundaries */
+}
+
+/* Container for each iframe */
+.iframe-container {
+  position: relative;
+  width: 50%; /* Make each iframe take up half the width */
+  height: 600px; /* Set a fixed height for the iframes */
+  overflow: hidden;
+  border: 1px solid #ccc; /* Add a border around the iframe */
+  border-radius: 10px; /* Optional: Round corners */
+}
+
+/* Styling for iframes */
+iframe {
+  width: 100%; /* Full width of the container */
+  height: 100%; /* Full height of the container */
+  border: none; /* Remove the default border */
+}
+
+/* Style for disabled iframes */
+.disabled {
+  pointer-events: none; /* Disable clicks on the iframe */
+  opacity: 0.5; /* Make it appear semi-transparent */
+}
+
+/* Optional: Add some margins around the body for better spacing */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Style for headers inside iframes (optional) */
+h1 {
+  text-align: center;
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
