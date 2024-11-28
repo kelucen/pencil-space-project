@@ -1,0 +1,31 @@
+.disabled-frame {
+  pointer-events: none;
+  opacity: 0.5;
+}
+.main-page {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 6rem;
+}
+
+.new-game-button {
+  width: 50%;
+  height: 50px;
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: medium;
+  justify-content: center;
+}
+
+.new-game-button:hover {
+  background-color: darkblue;
+}
