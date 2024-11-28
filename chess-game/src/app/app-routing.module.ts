@@ -1,11 +1,13 @@
-import { IframepageComponent } from './iframepage/iframepage.component';
+import { IframePageComponent } from './iframepage/iframepage.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MainpageComponent } from './mainpage/mainpage.component';
+import { MainPageComponent } from './mainpage/mainpage.component';
 
 const routes: Routes = [
-{ path: 'iframepage', component: IframepageComponent },
-  {path: 'main', component: MainpageComponent }
+  {path: 'iframepage', component: IframePageComponent },
+  {path: 'mainpage', component: MainPageComponent },
+
+  {path: '', redirectTo: '/mainpage', pathMatch: 'full' },
 ];
 
 @NgModule({
