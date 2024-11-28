@@ -1,27 +1,39 @@
-# ChessGame
+# Chess Game
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.16.
+This project is a simple **chess game** built with **Angular** and **Firebase**. It allows two players to play a game of chess in their browsers. The game features two chessboards displayed side by side, with one representing the **White's** turn and the other representing **Black's** turn.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Interactive Chessboards**: Two interactive chessboards are displayed, one for White and one for Black. The move made on one board is mirrored on the other.
+- **Player Turn Management**: The board is automatically disabled for the player who is not currently taking their turn.
+- **Checkmate Detection**: The game can detect checkmate and end the game with a notification.
+- **Firebase Hosting**: The app is hosted on Firebase, providing easy access from any device.
 
-## Code scaffolding
+## Screenshots
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Chess Game Interface
 
-## Build
+- The two chessboards are displayed side by side.
+- The **left side** shows **White's board** and the **right side** shows **Black's board**, with Black’s board flipped 180°.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+  ![Chess Game Screenshot 1](img1.png)
+  ![Chess Game Screenshot 2](img2.png)
 
-## Running unit tests
+## Setup
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Prerequisites
 
-## Running end-to-end tests
+Before running the project locally, make sure you have the following installed:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- **Node.js** (version 14 or later)
+- **Angular CLI**
+- **Firebase CLI** (for hosting)
 
-## Further help
+### Install Dependencies
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+1. Clone this repository:
+
+   ```bash
+   git clone https://github.com/your-username/chess-game.git
+   cd chess-game
+

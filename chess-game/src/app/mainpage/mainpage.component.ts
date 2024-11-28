@@ -11,14 +11,14 @@ export class MainPageComponent implements OnInit, OnDestroy {
   frame1Disabled: boolean = false;
   frame2Disabled: boolean = true;
 
-  currentTurn: 'white' | 'black' = 'white';
   gameInProgress: boolean = true;
 
   ngOnInit(): void {
     this.iframe1 = document.getElementById('iframe1') as HTMLIFrameElement;
     this.iframe2 = document.getElementById('iframe2') as HTMLIFrameElement;
-
+    this.loadGameState();
     window.addEventListener('message', this.receiveMessage.bind(this), false);
+    this.reverseBoardInIframe('iframe2');
   }
 
   ngOnDestroy(): void {
@@ -28,16 +28,20 @@ export class MainPageComponent implements OnInit, OnDestroy {
   receiveMessage(event: MessageEvent): void {
     const data = event.data;
     if (data.type === 'move') {
-      console.log(event.data);
       this.processMove(data.move);
+    }
+    else if (data.type === 'checkmate') {
+      alert('Checkmate! Game Over');
+      this.gameInProgress = false;
+      localStorage.removeItem('gameState');
     }
   }
 
   processMove(move: any): void {
     if (this.gameInProgress) {
       this.mirrorMoveInOtherIframe(move);
-
       this.toggleDisableBoards(move);
+      this.saveGameState();
     }
   }
 
@@ -69,5 +73,37 @@ export class MainPageComponent implements OnInit, OnDestroy {
     }
   }
 
+  loadGameState(): void {
+    const savedState = localStorage.getItem('gameState');
+    setTimeout(()=> this.reverseBoardInIframe('iframe2'), 1000);
+    if (savedState) {
+      const state = JSON.parse(savedState);
+      this.gameInProgress = state.gameInProgress;
+      this.frame1Disabled = state.lightDisabled;
+      this.frame2Disabled = state.darkDisabled;
+    }
+  }
 
+  saveGameState(): void {
+    const gameState = {
+      gameInProgress: this.gameInProgress,
+      lightDisabled: this.frame1Disabled,
+      darkDisabled: this.frame2Disabled,
+    };
+    localStorage.setItem('gameState', JSON.stringify(gameState));
+  }
+
+  resetGame(): void {
+    this.gameInProgress = true;
+    this.iframe1.contentWindow?.postMessage({ type: 'reset' }, '*');
+    this.iframe2.contentWindow?.postMessage({ type: 'reset' }, '*');
+    localStorage.removeItem('gameState');
+  }
+
+  reverseBoardInIframe(iframeId: string): void {
+    const iframe = document.getElementById(iframeId) as HTMLIFrameElement;
+    if (iframe && iframe.contentWindow) {
+      iframe.contentWindow?.postMessage({ type: 'reverse' }, '*');
+    }
+  }
 }

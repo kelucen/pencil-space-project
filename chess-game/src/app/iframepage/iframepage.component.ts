@@ -15,12 +15,14 @@ import { NgxChessBoardComponent } from 'ngx-chess-board';
 export class IframePageComponent implements OnInit, OnDestroy {
   @ViewChild('chessBoard')
   chessBoard!: NgxChessBoardComponent;
-
+  chessBoardHistory: any[] = [];
 
   constructor(private cdr: ChangeDetectorRef) {}
 
   ngAfterViewInit(): void {
     this.cdr.detectChanges();
+    this.chessBoardHistory = localStorage.getItem('chessBoardHistory') ? JSON.parse(localStorage.getItem('chessBoardHistory')!) : [];
+    this.chessBoardHistory.map((h) => this.chessBoard.move(h.move));
   }
 
   ngOnInit(): void {
@@ -32,7 +34,11 @@ export class IframePageComponent implements OnInit, OnDestroy {
   }
 
   sendMove(event: any): void {
-    window.parent.postMessage({ type: 'move', move: event }, '*');
+    if(event.checkmate) {
+      localStorage.removeItem('chessBoardHistory');
+      return window.parent.postMessage({ type: 'checkmate', move: event }, '*');
+    }
+    return window.parent.postMessage({ type: 'move', move: event }, '*');
   }
 
   receiveMessage(event: MessageEvent): void {
@@ -40,11 +46,18 @@ export class IframePageComponent implements OnInit, OnDestroy {
     if (data.type === 'move') {
       this.applyMove(data.move.move);
     }
+    else if(data.type === 'reset') {
+      this.chessBoard.reset();
+    }
+    else if(data.type === 'reverse') {
+      this.chessBoard.reverse();
+    }
   }
 
   applyMove(move: any): void {
     if (this.chessBoard) {
       this.chessBoard.move(move);
+      localStorage.setItem('chessBoardHistory', JSON.stringify(this.chessBoard.getMoveHistory()));
     }
   }
 }

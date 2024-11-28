@@ -1,4 +1,12 @@
+<div>
+  <h1>Chess Game</h1>
 <div class="main-page">
-  <iframe src="/iframepage" id="iframe1" width="500" height="500" [ngClass]="{'disabled-frame': frame1Disabled}"></iframe>
-  <iframe src="/iframepage" id="iframe2" width="500" height="500" [ngClass]="{'disabled-frame': frame2Disabled}"></iframe>
+  <iframe src="/iframepage" id="iframe1" width="520" height="520" [ngClass]="{'disabled-frame': frame1Disabled}"></iframe>
+  <iframe src="/iframepage" id="iframe2" width="520" height="520" [ngClass]="{'disabled-frame': frame2Disabled}"></iframe>
 </div>
+<div class="button-container">
+  <button class="new-game-button" *ngIf="!gameInProgress">New Game</button>
+</div>
+</div>
+
+
